@@ -5,8 +5,8 @@ import { InputField } from "./components/InputField";
 function App() {
     return (
         <Box>
-            <Flex direction={"row"}>
-                <InputField></InputField>
+            <Flex direction={"row"} css={{ padding: "2rem" }}>
+                <InputField placeholder="Search Product" />
             </Flex>
         </Box>
     );
