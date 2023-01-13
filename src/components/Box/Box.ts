@@ -1,5 +1,5 @@
 import { blackA } from "@radix-ui/colors";
-import { css, styled } from "../../styles";
+import { css, styled } from "@styles";
 
 export const boxCss = css( {
     variants: {
@@ -20,7 +20,7 @@ export const boxCss = css( {
             13: { size: "$13" },
             14: { size: "$14" },
             full: { size: "$full" },
-            half: { size: "$half" }
+            half: { size: "$half" },
         },
         width: {
             0: { width: "$0" },
@@ -39,7 +39,7 @@ export const boxCss = css( {
             13: { width: "$13" },
             14: { width: "$14" },
             full: { width: "$full" },
-            half: { width: "$half" }
+            half: { width: "$half" },
         },
         height: {
             0: { height: "$0" },
@@ -58,13 +58,9 @@ export const boxCss = css( {
             13: { height: "$13" },
             14: { height: "$14" },
             full: { height: "$full" },
-            half: { height: "$half" }
-        }
-    }
+            half: { height: "$half" },
+        },
+    },
 } );
 
-export const Box = styled( "div", {
-    backgroundColor: "black",
-    height: "100%",
-    width: "100%"
-} );
+export const Box = styled( "div", boxCss );

@@ -2,7 +2,7 @@ import { createStitches } from "@stitches/react";
 import type {
     ScaleValue,
     CSS as StitchesCSS,
-    PropertyValue
+    PropertyValue,
 } from "@stitches/react";
 
 export const {
@@ -15,10 +15,12 @@ export const {
     prefix,
     styled,
     theme,
-    reset
+    reset,
 } = createStitches( {
     theme: {
-        colors: {},
+        colors: {
+            green: "#17312C",
+        },
         fonts: {},
         fontSizes: {},
         fontWeights: {},
@@ -41,175 +43,169 @@ export const {
             13: "2.75rem",
             14: "3rem",
             full: "100%",
-            half: "50%"
+            half: "50%",
         },
         space: {},
         radii: {},
         borderWidths: {},
         shadows: {},
-        breakpoints: {}
+        breakpoints: {},
     },
     media: {
         dark: "(prefer-color-scheme: dark)",
-        light: "(prefer-color-scheme: light)"
+        light: "(prefer-color-scheme: light)",
     },
     utils: {
         p: ( value: ScaleValue<"padding"> | string | number ) => ( {
-            padding: value
+            padding: value,
         } ),
         pt: ( value: ScaleValue<"paddingTop"> | string | number ) => ( {
-            paddingTop: value
+            paddingTop: value,
         } ),
         pr: ( value: ScaleValue<"paddingRight"> | string | number ) => ( {
-            paddingRight: value
+            paddingRight: value,
         } ),
         pb: ( value: ScaleValue<"paddingBottom"> | string | number ) => ( {
-            paddingBottom: value
+            paddingBottom: value,
         } ),
         pl: ( value: ScaleValue<"paddingLeft"> | string | number ) => ( {
-            paddingLeft: value
+            paddingLeft: value,
         } ),
         px: ( value: ScaleValue<"paddingLeft"> | string | number ) => ( {
             paddingLeft: value,
-            paddingRight: value
+            paddingRight: value,
         } ),
         py: ( value: ScaleValue<"paddingTop"> | string | number ) => ( {
             paddingTop: value,
-            paddingBottom: value
+            paddingBottom: value,
         } ),
         m: ( value: ScaleValue<"margin"> | string | number ) => ( {
-            margin: value
+            margin: value,
         } ),
         mt: ( value: ScaleValue<"marginTop"> | string | number ) => ( {
-            marginTop: value
+            marginTop: value,
         } ),
         mr: ( value: ScaleValue<"marginRight"> | string | number ) => ( {
-            marginRight: value
+            marginRight: value,
         } ),
         mb: ( value: ScaleValue<"marginBottom"> | string | number ) => ( {
-            marginBottom: value
+            marginBottom: value,
         } ),
         ml: ( value: ScaleValue<"marginLeft"> | string | number ) => ( {
-            marginLeft: value
+            marginLeft: value,
         } ),
         mx: ( value: ScaleValue<"marginLeft"> | string | number ) => ( {
             marginLeft: value,
-            marginRight: value
+            marginRight: value,
         } ),
         my: ( value: ScaleValue<"marginTop"> | string | number ) => ( {
             marginTop: value,
-            marginBottom: value
+            marginBottom: value,
         } ),
         ta: ( value: ScaleValue<"textAlign"> | string | number ) => ( {
-            textAlign: value
+            textAlign: value,
         } ),
 
         fd: ( value: ScaleValue<"flexDirection"> | string | number ) => ( {
-            flexDirection: value
+            flexDirection: value,
         } ),
         fw: ( value: ScaleValue<"flexWrap"> | string | number ) => ( {
-            flexWrap: value
+            flexWrap: value,
         } ),
 
         ai: ( value: ScaleValue<"alignItems"> | string | number ) => ( {
-            alignItems: value
+            alignItems: value,
         } ),
         ac: ( value: ScaleValue<"alignContent"> | string | number ) => ( {
-            alignContent: value
+            alignContent: value,
         } ),
         jc: ( value: ScaleValue<"justifyContent"> | string | number ) => ( {
-            justifyContent: value
+            justifyContent: value,
         } ),
         as: ( value: ScaleValue<"alignSelf"> | string | number ) => ( {
-            alignSelf: value
+            alignSelf: value,
         } ),
         fg: ( value: ScaleValue<"flexGrow"> | string | number ) => ( {
-            flexGrow: value
+            flexGrow: value,
         } ),
         fs: ( value: ScaleValue<"flexShrink"> | string | number ) => ( {
-            flexShrink: value
+            flexShrink: value,
         } ),
         fb: ( value: ScaleValue<"flexBasis"> | string | number ) => ( {
-            flexBasis: value
+            flexBasis: value,
         } ),
         bc: ( value: ScaleValue<"backgroundColor"> | string | number ) => ( {
-            backgroundColor: value
+            backgroundColor: value,
         } ),
         br: ( value: ScaleValue<"borderRadius"> | string | number ) => ( {
-            borderRadius: value
+            borderRadius: value,
         } ),
-        btrr: (
-            value: ScaleValue<"borderTopRightRadius"> | string | number
-        ) => ( {
-            borderTopRightRadius: value
+        btrr: ( value: ScaleValue<"borderTopRightRadius"> | string | number ) => ( {
+            borderTopRightRadius: value,
         } ),
-        bbrr: (
-            value: ScaleValue<"borderBottomRightRadius"> | string | number
-        ) => ( {
-            borderBottomRightRadius: value
+        bbrr: ( value: ScaleValue<"borderBottomRightRadius"> | string | number ) => ( {
+            borderBottomRightRadius: value,
         } ),
-        bblr: (
-            value: ScaleValue<"borderBottomLeftRadius"> | string | number
-        ) => ( {
-            borderBottomLeftRadius: value
+        bblr: ( value: ScaleValue<"borderBottomLeftRadius"> | string | number ) => ( {
+            borderBottomLeftRadius: value,
         } ),
         btlr: ( value: ScaleValue<"borderTopLeftRadius"> | string | number ) => ( {
-            borderTopLeftRadius: value
+            borderTopLeftRadius: value,
         } ),
         bs: ( value: ScaleValue<"boxShadow"> | string | number ) => ( {
-            boxShadow: value
+            boxShadow: value,
         } ),
 
         lh: ( value: ScaleValue<"lineHeight"> | string | number ) => ( {
-            lineHeight: value
+            lineHeight: value,
         } ),
         ox: ( value: ScaleValue<"overflowX"> | string | number ) => ( {
-            overflowX: value
+            overflowX: value,
         } ),
         oy: ( value: ScaleValue<"overflowY"> | string | number ) => ( {
-            overflowY: value
+            overflowY: value,
         } ),
         pe: ( value: ScaleValue<"pointerEvents"> | string | number ) => ( {
-            pointerEvents: value
+            pointerEvents: value,
         } ),
         us: ( value: ScaleValue<"userSelect"> | string | number ) => ( {
             WebkitUserSelect: value,
-            userSelect: value
+            userSelect: value,
         } ),
         userSelect: ( value: ScaleValue<"userSelect"> | string | number ) => ( {
             WebkitUserSelect: value,
-            userSelect: value
+            userSelect: value,
         } ),
         size: ( value: ScaleValue<"width"> | string | number ) => ( {
             width: value,
-            height: value
+            height: value,
         } ),
         align: ( value: ScaleValue<"justifyContent"> | string | number ) => ( {
             justifyContent: value,
-            alignItems: value
+            alignItems: value,
         } ),
         appearance: ( value: ScaleValue<"appearance"> | string | number ) => ( {
             WebkitAppearance: value,
-            appearance: value
+            appearance: value,
         } ),
         backgroundClip: (
             value: ScaleValue<"backgroundClip"> | string | number
         ) => ( {
             WebkitBackgroundClip: value,
-            backgroundClip: value
+            backgroundClip: value,
         } ),
         typography: ( value: ScaleValue<"lineHeight"> | string | number ) => ( {
             fontSize: value,
             fontWeight: value,
             lineHeight: value,
-            letterSpacing: value
+            letterSpacing: value,
         } ),
         textOverflow: ( value: PropertyValue<"textOverflow"> ) => ( {
             overflow: "hidden",
             whiteSpace: "nowrap",
-            textOverflow: value
-        } )
-    }
+            textOverflow: value,
+        } ),
+    },
 } );
 
 export type CSS = StitchesCSS<typeof config>;
