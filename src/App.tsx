@@ -1,14 +1,11 @@
-import { Box } from "./components";
-import { Flex } from "./components/Flex";
-import { InputField } from "./components/InputField";
+import { BrowserRouter } from "react-router-dom";
+import { AppRoutes } from "./routes";
 
 function App() {
     return (
-        <Box>
-            <Flex direction={"row"} css={{ padding: "2rem" }}>
-                <InputField placeholder="Search Product" />
-            </Flex>
-        </Box>
+        <BrowserRouter>
+            <AppRoutes />
+        </BrowserRouter>
     );
 }
 
