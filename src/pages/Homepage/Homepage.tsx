@@ -1,11 +1,27 @@
-import { Separator } from "@radix-ui/react-separator";
-import { FlexBox, SearchBar, InputField } from "@src/components";
+import { FlexBox, InputField, SearchBar } from "@src/components";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const Homepage = () => {
+    const [productName, setProductName] = useState<string>( "" );
+
+    const handleInputChange = ( e: any ) => {
+        const { value } = e.target;
+        setProductName( value );
+    };
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate( `/search-results/${productName}` );
+    };
+
     return (
         <FlexBox center size={"full"}>
             <SearchBar>
                 <InputField
+                    value={productName}
+                    onChange={handleInputChange}
                     placeholder="***** Search your product here *****"
                     type={"searchBarInput"}
                 />
@@ -16,11 +32,12 @@ export const Homepage = () => {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="feather feather-search"
                     opacity="75%"
+                    onClick={handleClick}
                 >
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>

@@ -8,7 +8,10 @@ export const AppRoutes = () => {
             <Route element={<Layout />}>
                 <Route path="/">
                     <Route index element={<Homepage />} />
-                    <Route path="search-results" element={<SearchResult />} />
+                    <Route
+                        path="search-results/:productName"
+                        element={<SearchResult />}
+                    />
                 </Route>
             </Route>
         </Routes>
