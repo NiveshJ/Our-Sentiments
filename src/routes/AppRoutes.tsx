@@ -1,4 +1,4 @@
-import { Homepage, SearchResult } from "@src/pages";
+import { Homepage, SearchResult, ProductReview } from "@src/pages";
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "@src/components";
 
@@ -12,6 +12,7 @@ export const AppRoutes = () => {
                         path="search-results/:productName"
                         element={<SearchResult />}
                     />
+                    <Route path="review-results/:productId" element={<ProductReview />} />
                 </Route>
             </Route>
         </Routes>
