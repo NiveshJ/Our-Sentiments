@@ -4,10 +4,21 @@ import { css, styled } from "@src/styles";
 export const styledImageCss = css( {
     width: "$full",
     height: "$full",
-    objectFit: "cover"
+    objectFit: "contain"
+} );
+
+export const cardImageContainerCss = css( {
+    boxShadow: "$shadowtype1",
+    borderRadius: "$1",
+    height: "90%",
+    overflow: "hidden",
+    width: "$full",
+    padding: "$1"
 } );
 
 export const StyledImage = styled( "img", styledImageCss );
+
+export const StyledCardImageContainer = styled( Box, cardImageContainerCss );
 
 export interface CardImageContainerProps {
     src: string;
@@ -15,8 +26,8 @@ export interface CardImageContainerProps {
 
 export const CardImageContainer = ( { src }: CardImageContainerProps ) => {
     return (
-        <Box width={"full"} css={{ height: "90%" }}>
+        <StyledCardImageContainer>
             <StyledImage src={src} />
-        </Box>
+        </StyledCardImageContainer>
     );
 };

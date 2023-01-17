@@ -10,26 +10,30 @@ export const gridCss = css( {
             center: { alignItems: "center" },
             end: { alignItems: "end" },
             stretch: { alignItems: "stretch" },
-            baseline: { alignItems: "baseline" },
+            baseline: { alignItems: "baseline" }
         },
         justify: {
             start: { justifyContent: "start" },
             center: { justifyContent: "center" },
             end: { justifyContent: "end" },
-            between: { justifyContent: "space-between" },
+            between: { justifyContent: "space-between" }
         },
         flow: {
             row: { gridAutoFlow: "row" },
             column: { gridAutoFlow: "column" },
             dense: { gridAutoFlow: "dense" },
             rowDense: { gridAutoFlow: "row dense" },
-            columnDense: { gridAutoFlow: "column dense" },
+            columnDense: { gridAutoFlow: "column dense" }
         },
         columns: {
             1: { gridTemplateColumns: "repeat(1, 1fr)" },
             2: { gridTemplateColumns: "repeat(2, 1fr)" },
             3: { gridTemplateColumns: "repeat(3, 1fr)" },
             4: { gridTemplateColumns: "repeat(4, 1fr)" },
+            auto: {
+                gridTemplateColumns:
+                    "minmax(15rem, max-content) repeat(auto-fill, 1fr)"
+            }
         },
         gap: {
             1: { gap: "$1" },
@@ -40,7 +44,7 @@ export const gridCss = css( {
             6: { gap: "$6" },
             7: { gap: "$7" },
             8: { gap: "$8" },
-            9: { gap: "$9" },
+            9: { gap: "$9" }
         },
         gapX: {
             1: { columnGap: "$1" },
@@ -51,7 +55,7 @@ export const gridCss = css( {
             6: { columnGap: "$6" },
             7: { columnGap: "$7" },
             8: { columnGap: "$8" },
-            9: { columnGap: "$9" },
+            9: { columnGap: "$9" }
         },
         gapY: {
             1: { rowGap: "$1" },
@@ -62,8 +66,8 @@ export const gridCss = css( {
             6: { rowGap: "$6" },
             7: { rowGap: "$7" },
             8: { rowGap: "$8" },
-            9: { rowGap: "$9" },
-        },
-    },
+            9: { rowGap: "$9" }
+        }
+    }
 } );
 export const Grid = styled( "div", gridCss );

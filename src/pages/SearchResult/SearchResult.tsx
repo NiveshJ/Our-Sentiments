@@ -1,31 +1,46 @@
+import { Box, Grid } from "@src/components";
 import { Card } from "@src/components/Card";
 import { axiosInstance } from "@src/helpers";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
 interface apiData {
-  id: string;
-  title: string;
-  image: string;
+    id: string;
+    title: string;
+    image: string;
 }
 
 export const SearchResult = () => {
     const { productName } = useParams();
+    const [ productData, setProductData ] = useState<apiData[]>( [] );
+    const fetchData = useCallback( async () => {
+        try {
+            const { data, status } = await axiosInstance(
+                `/search/${productName}`
+            );
+            setProductData( data );
+        } catch ( error ) {
+            console.log( error );
+        }
+    }, [ productName ] );
 
     useEffect( () => {
-        const fetchData: Promise<unknown> = async () => {
-            const { data } = await axiosInstance( `/search/${productName}` );
-            console.log( data );
-            return data;
-        };
         fetchData();
     }, [] );
 
     return (
-        <Card
-            size={"small"}
-            imageSrc="https://images.pexels.com/photos/6633071/pexels-photo-6633071.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            title={"Some Product"}
-        />
+        <Grid columns={4}>
+            {productData &&
+                productData?.map( ( product, key ) => {
+                    const { id, image, title } = product;
+                    return (
+                        <Card
+                            size={"small"}
+                            key={id}
+                            title={title}
+                            imageSrc={image}
+                        />
+                    );
+                } )}
+        </Grid>
     );
 };

@@ -3,9 +3,6 @@ import { CardTitle, CardImageContainer, Flex } from "@src/components";
 import { VariantProps } from "@stitches/react";
 
 export const cardContainerCss = css( {
-    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-    borderRadius: "$1",
-    overflow: "hidden",
     margin: "$4",
     variants: {
         size: {
@@ -15,7 +12,7 @@ export const cardContainerCss = css( {
         }
     }
 } );
-export const CardContainer = styled( "div", cardContainerCss );
+export const CardContainer = styled( Flex, cardContainerCss );
 
 export interface CardProps
     extends PropsWithCSS,
@@ -26,7 +23,7 @@ export interface CardProps
 
 export const Card = ( { imageSrc, title, ...props }: CardProps ) => {
     return (
-        <CardContainer {...props}>
+        <CardContainer direction={"column"} {...props}>
             <CardImageContainer src={imageSrc} />
             <CardTitle>{title}</CardTitle>
         </CardContainer>

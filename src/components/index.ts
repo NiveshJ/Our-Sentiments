@@ -1,6 +1,6 @@
 export * from "./Box";
-export * from "./Card";
 export * from "./Flex";
+export * from "./Card";
 export * from "./InputField";
 export * from "./SearchBar";
 export * from "./SearchIcon";
