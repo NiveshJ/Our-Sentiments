@@ -1,45 +1,76 @@
-import { Box, Grid } from "@src/components";
+import { Box, Grid, InputField, SearchBar } from "@src/components";
 import { Card } from "@src/components/Card";
 import { axiosInstance } from "@src/helpers";
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-interface apiData {
-  id: string;
-  title: string;
-  image: string;
+import { useNavigate, useParams } from "react-router-dom";
+interface ApiData {
+    id: string;
+    title: string;
+    image: string;
 }
 
+type Params = {
+    productName: string;
+};
+
 export const SearchResult = () => {
-    const { productName } = useParams();
-    const [productData, setProductData] = useState<apiData[]>( [] );
+    const { productName: searchedProduct } = useParams<Params>();
+    const [ productData, setProductData ] = useState<ApiData[]>( [] );
+    const [ productName, setProductName ] = useState<string | undefined>(
+        searchedProduct
+    );
+    const navigate = useNavigate();
+
     const fetchData = useCallback( async () => {
         try {
-            const { data, status } = await axiosInstance( `/search/${productName}` );
+            const { data, status } = await axiosInstance.get(
+                `/search/${searchedProduct}`
+            );
             setProductData( data );
         } catch ( error ) {
             console.log( error );
         }
-    }, [productName] );
+    }, [ searchedProduct ] );
+
+    const handleInputChange = ( e: any ) => {
+        const { value } = e.target;
+        setProductName( value );
+    };
+
+    const handleClick = () => {
+        navigate( `/search-results/${productName}` );
+    };
 
     useEffect( () => {
         fetchData();
-    }, [] );
+    }, [ searchedProduct ] );
 
     return (
-        <Grid columns={4}>
-            {productData &&
-        productData?.map( ( product, key ) => {
-            const { id, image, title } = product;
-            return (
-                <Card
-                    productId={id}
-                    size={"small"}
-                    key={id}
-                    title={title}
-                    imageSrc={image}
+        <Box css={{ py: "$2" }}>
+            <SearchBar handleClick={handleClick}>
+                <InputField
+                    value={productName}
+                    onChange={handleInputChange}
+                    placeholder="Search for products"
+                    type={"searchBarInput"}
                 />
-            );
-        } )}
-        </Grid>
+            </SearchBar>
+            <Grid columns={4}>
+                {productData &&
+                    productData?.map( ( product, key ) => {
+                        const { id, image, title } = product;
+                        return (
+                            <Card
+                                productId={id}
+                                size={"small"}
+                                animate={"scale"}
+                                key={id}
+                                title={title}
+                                imageSrc={image}
+                            />
+                        );
+                    } )}
+            </Grid>
+        </Box>
     );
 };
