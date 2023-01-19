@@ -1,5 +1,6 @@
 export * from "./Box";
 export * from "./Flex";
+export * from "./Avatar";
 export * from "./Card";
 export * from "./InputField";
 export * from "./SearchBar";

@@ -10,7 +10,8 @@ export const cardContainerCss = css( {
         size: {
             small: {
                 size: "$productCard"
-            }
+            },
+            shadowStyle: {}
         }
     }
 } );

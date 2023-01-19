@@ -1,5 +1,6 @@
 import { css, PropsWithCSS, styled } from "@src/styles";
-import { CardTitle, CardImageContainer, Flex } from "@src/components";
+import { Flex } from "../Flex";
+import { CardTitle, CardImageContainer } from "./";
 import { VariantProps } from "@stitches/react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,19 +9,29 @@ export const cardContainerCss = css( {
     variants: {
         size: {
             small: {
-                size: "$productCard",
-            },
+                width: "$productCardWidth",
+                height: "$productCardHeight"
+            }
         },
-    },
+        animate: {
+            scale: {
+                transition: "scale ease-in-out 0.3s",
+                "&:hover": {
+                    cursor: "pointer",
+                    scale: 1.05
+                }
+            }
+        }
+    }
 } );
 export const CardContainer = styled( Flex, cardContainerCss );
 
 export interface CardProps
-  extends PropsWithCSS,
-    VariantProps<typeof CardContainer> {
-  imageSrc: string;
-  title: string;
-  productId: string;
+    extends PropsWithCSS,
+        VariantProps<typeof CardContainer> {
+    imageSrc: string;
+    title: string;
+    productId: string;
 }
 
 export const Card = ( { imageSrc, title, productId, ...props }: CardProps ) => {
@@ -32,7 +43,7 @@ export const Card = ( { imageSrc, title, productId, ...props }: CardProps ) => {
     return (
         <CardContainer onClick={reviewResults} direction={"column"} {...props}>
             <CardImageContainer src={imageSrc} />
-            <CardTitle>{title}</CardTitle>
+            <CardTitle>{`${title.substring( 0, 50 )}...`}</CardTitle>
         </CardContainer>
     );
 };

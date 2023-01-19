@@ -25,6 +25,12 @@ export const flexCss = css( {
             end: { alignItems: "flex-end" },
             stretch: { alignItems: "stretch" },
             baseline: { alignItems: "baseline" }
+        },
+        center: {
+            true: {
+                justifyContent: "center",
+                alignItems: "center"
+            }
         }
     }
 } );
