@@ -25,7 +25,9 @@ export const {
             primaryColor: "#ece1e0"
         },
         fonts: {
-            sans: [ "'AlegreyaSans', sans-serif", "Exo2,sans-serif" ].join( "," )
+            // alegreyaSans: "AlegreyaSans', sans-serif",
+            // exo2: "Exo2,sans-serif",
+            sans: [ "Exo2,sans-serif", "'AlegreyaSans', sans-serif" ].join( "," )
         },
         fontSizes: {
             desktopLarge: ""
@@ -55,7 +57,8 @@ export const {
             12: "6rem",
             13: "6.5rem",
             14: "7rem",
-            productCard: "15rem",
+            productCardWidth: "15rem",
+            productCardHeight: "20rem",
             full: "100%",
             half: "50%"
         },
@@ -93,7 +96,8 @@ export const {
             12: "6rem",
             13: "6.5rem",
             14: "7rem",
-            inputFieldBorderRadius: "0.2rem"
+            inputFieldBorderRadius: "0.2rem",
+            circle: "50%"
         },
         borderWidths: {},
         shadows: {
