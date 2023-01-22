@@ -6,15 +6,15 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 interface apiData {
-  reviewerName: string;
-  reviewTitle: string;
-  reviewBody: string;
-  reviewStars: string;
+    reviewerName: string;
+    reviewTitle: string;
+    reviewBody: string;
+    reviewStars: string;
 }
 
 export const Sentiments = () => {
     const { productId } = useParams();
-    const [productData, setProductData] = useState<apiData[]>( [] );
+    const [ productData, setProductData ] = useState<apiData[]>( [] );
 
     const fetchData = useCallback( async () => {
         try {
@@ -25,34 +25,39 @@ export const Sentiments = () => {
         } catch ( error ) {
             console.log( error );
         }
-    }, [productId] );
+    }, [ productId ] );
+
+    interface ReviewDataType {
+        inputs: string[];
+    }
+
+    const reviewData: ReviewDataType = {
+        inputs: [ "I don't like it" ]
+    };
 
     const fetchDataRoberta = useCallback(
-        async ( reviewBody: unknown ) => {
+        async ( reviewBody: ReviewDataType ) => {
             try {
-                const response = await axiosHuggingFace.post( "", {
-                    data: {
-                        inputs: ["hungry"],
-                    },
-                } );
+                const response = await axiosHuggingFace.post( "", reviewBody );
                 console.log( response.data );
             } catch ( error ) {
                 console.log( error );
             }
         },
-        [productId]
+        [ productId ]
     );
 
     useEffect( () => {
         fetchData();
         if ( productData ) {
             productData?.map( ( product, index ) => {
-                const { reviewerName, reviewTitle, reviewBody, reviewStars } = product;
+                const { reviewerName, reviewTitle, reviewBody, reviewStars } =
+                    product;
             } );
-            fetchDataRoberta( "i like it" );
+            fetchDataRoberta( reviewData );
         }
         console.log( productData );
     }, [] );
 
-    return;
+    return null;
 };

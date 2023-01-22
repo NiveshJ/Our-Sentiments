@@ -12,7 +12,10 @@ export const AppRoutes = () => {
                         path="search-results/:productName"
                         element={<SearchResult />}
                     />
-                    <Route path="review-results/:productId" element={<ProductReview />} />
+                    <Route
+                        path="review-results/:productId"
+                        element={<ProductReview />}
+                    />
                     <Route
                         path="review-results/:productId/sentiments"
                         element={<Sentiments />}
