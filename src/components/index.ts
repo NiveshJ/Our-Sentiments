@@ -8,4 +8,5 @@ export * from "./SearchIcon";
 export * from "./FlexBox";
 export * from "./Layout";
 export * from "./Grid";
+export * from "./Button";
 export * from "./Seperator";
