@@ -10,3 +10,8 @@ export type ProductReviewData = {
     reviewBody: string;
     reviewStars: number;
 };
+
+export enum ReviewType {
+    AllReviews = "all_reviews",
+    VerifiedPurchaseOnly = "avp_only_reviews"
+}
