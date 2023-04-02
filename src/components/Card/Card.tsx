@@ -24,7 +24,18 @@ export const cardContainerCss = css( {
         }
     }
 } );
-export const CardContainer = styled( Flex, cardContainerCss );
+
+export const reviewCardContainerCss = css( {
+    boxShadow: "$shadowtype3",
+    borderRadius: "$1",
+    padding: "$1"
+} );
+
+export const CardContainer = styled(
+    Flex,
+    cardContainerCss,
+    reviewCardContainerCss
+);
 
 export interface CardProps
     extends PropsWithCSS,
@@ -40,10 +51,11 @@ export const Card = ( { imageSrc, title, productId, ...props }: CardProps ) => {
     function reviewResults() {
         navigate( `/review-results/${productId}` );
     }
+
     return (
         <CardContainer onClick={reviewResults} direction={"column"} {...props}>
             <CardImageContainer src={imageSrc} />
-            <CardTitle>{`${title.substring( 0, 50 )}...`}</CardTitle>
+            <CardTitle>{`${title?.substring( 0, 50 )}...`}</CardTitle>
         </CardContainer>
     );
 };
