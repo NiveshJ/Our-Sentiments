@@ -1,6 +1,6 @@
-import { Homepage, SearchResult, ProductReview, Sentiments } from "@src/pages";
-import { Route, Routes } from "react-router-dom";
 import { Layout } from "@src/components";
+import { Homepage, ProductReview, SearchResult, Sentiments } from "@src/pages";
+import { Route, Routes } from "react-router-dom";
 
 export const AppRoutes = () => {
     return (
