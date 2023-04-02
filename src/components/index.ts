@@ -7,6 +7,7 @@ export * from "./SearchBar";
 export * from "./SearchIcon";
 export * from "./FlexBox";
 export * from "./Layout";
+export * from "./Loader";
 export * from "./Grid";
 export * from "./Button";
 export * from "./Seperator";
