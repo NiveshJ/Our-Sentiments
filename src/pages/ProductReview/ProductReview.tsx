@@ -1,14 +1,18 @@
 import {
     Avatar,
     Box,
+    Button,
     CardContainer,
     CardTitle,
     Flex,
     Grid
 } from "@src/components";
+import { ReviewGrid } from "@src/components/ReviewGrid";
+import { ReviewType } from "@src/helpers/types.d";
 import { useGetProduct, useGetReviews } from "@src/hooks";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Sentiments } from "../Sentiments";
 
 interface apiData {
     reviewerName: string;
@@ -20,42 +24,33 @@ interface apiData {
 export const ProductReview = () => {
     const { productId } = useParams();
     const navigate = useNavigate();
+    const [ showSentiments, setShowSentiments ] = useState( false );
 
     const { data: product } = useGetProduct( productId! );
-    const { data: reviews } = useGetReviews( productId! );
+    const { data: reviews } = useGetReviews(
+        productId!,
+        ReviewType.AllReviews,
+        50
+    );
+
+    const handleClick = () => {
+        setShowSentiments( !showSentiments );
+    };
 
     return (
-        <Box>
-            <Grid>
-                {reviews &&
-                    reviews?.map(
-                        (
-                            {
-                                reviewBody,
-                                reviewStars,
-                                reviewTitle,
-                                reviewerName
-                            },
-                            index
-                        ) => {
-                            return (
-                                <CardContainer
-                                    direction={"column"}
-                                    key={index}
-                                    gap={"1"}
-                                >
-                                    <Flex align={"center"} gap="2">
-                                        <Avatar name={reviewerName} />
-                                        <h1>{reviewerName}</h1>
-                                    </Flex>
-                                    <h3>Rating: {reviewStars}</h3>
-                                    <CardTitle>{reviewTitle}</CardTitle>
-                                    {reviewBody}
-                                </CardContainer>
-                            );
-                        }
-                    )}
-            </Grid>
+        <Box id="graph-canvas" size={"full"}>
+            {!showSentiments ? (
+                <ReviewGrid reviews={reviews!} />
+            ) : (
+                <Sentiments reviews={reviews!} />
+            )}
+            <Button variant={"floatingButton"} onClick={handleClick}>
+                {`${
+                    showSentiments
+                        ? `Show Product Reviews`
+                        : `Get Sentiment Analysis`
+                }`}
+            </Button>
         </Box>
     );
 };
