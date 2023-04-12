@@ -1,7 +1,7 @@
-import { ProductReviewData } from "@src/helpers/types.d";
+import { ReviewData } from "@src/helpers/types.d";
 
 export interface ReviewGridProps {
-    reviews: ProductReviewData[];
+    reviews: ReviewData[];
 }
 
 export const Sentiments = ( { reviews }: ReviewGridProps ) => {
@@ -11,7 +11,12 @@ export const Sentiments = ( { reviews }: ReviewGridProps ) => {
     const canvasContainer = document.getElementById( "graph-canvas" );
     canvasContainer?.appendChild( graphCanvas );
     df.print();
-    if ( document.getElementById( "graph-plot" ) ) df.plot( "graph-plot" ).scatter();
+    if ( document.getElementById( "graph-plot" ) )
+        df.plot( "graph-plot" ).bar( {
+            config: {
+                columns: [ "positive", "negative", "neutral" ]
+            }
+        } );
 
     return null;
 };

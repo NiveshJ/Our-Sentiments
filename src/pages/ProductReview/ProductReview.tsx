@@ -1,16 +1,8 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    CardContainer,
-    CardTitle,
-    Flex,
-    Grid
-} from "@src/components";
+import { Box, Button } from "@src/components";
 import { ReviewGrid } from "@src/components/ReviewGrid";
-import { ReviewType } from "@src/helpers/types.d";
-import { useGetProduct, useGetReviews } from "@src/hooks";
-import { useState } from "react";
+import { ReviewData, ReviewType } from "@src/helpers/types.d";
+import { useGetProduct, useGetReviews, useGetSentiments } from "@src/hooks";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Sentiments } from "../Sentiments";
 
@@ -30,8 +22,29 @@ export const ProductReview = () => {
     const { data: reviews } = useGetReviews(
         productId!,
         ReviewType.AllReviews,
-        50
+        300
     );
+
+    const arrayTitles: string[] | unknown = useMemo( () => {
+        const reviewsT: unknown = reviews?.map(
+            ( { reviewTitle } ) => reviewTitle
+        );
+        return reviewsT;
+    }, [ reviews ] );
+
+    const { data: sentiments } = useGetSentiments( arrayTitles as string[] );
+
+    const reviewData: ReviewData[] | unknown = useMemo( () => {
+        const data: unknown = reviews?.map( ( review, index ) => {
+            return {
+                ...review,
+                positive: sentiments?.[ index ][ 2 ]?.score,
+                neutral: sentiments?.[ index ][ 1 ]?.score,
+                negative: sentiments?.[ index ][ 0 ]?.score
+            };
+        } );
+        return data;
+    }, [ reviews, sentiments ] );
 
     const handleClick = () => {
         setShowSentiments( !showSentiments );
@@ -41,9 +54,9 @@ export const ProductReview = () => {
         <Box id="graph-canvas" size={"full"}>
             {!showSentiments ? (
                 <ReviewGrid reviews={reviews!} />
-            ) : (
-                <Sentiments reviews={reviews!} />
-            )}
+            ) : reviewData ? (
+                <Sentiments reviews={reviewData as ReviewData[]} />
+            ) : null}
             <Button variant={"floatingButton"} onClick={handleClick}>
                 {`${
                     showSentiments

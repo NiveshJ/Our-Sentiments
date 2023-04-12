@@ -4,12 +4,18 @@ export type ProductData = {
     imageUrl: string;
 };
 
-export type ProductReviewData = {
+export interface ProductReviewData {
     reviewerName: string;
     reviewTitle: string;
     reviewBody: string;
     reviewStars: number;
-};
+}
+
+export interface ReviewData extends ProductReviewData {
+    positive: number;
+    neutral: number;
+    negative: number;
+}
 
 export enum ReviewType {
     AllReviews = "all_reviews",
