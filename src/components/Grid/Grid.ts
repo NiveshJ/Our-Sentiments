@@ -13,10 +13,10 @@ export const gridCss = css( {
             baseline: { alignItems: "baseline" }
         },
         justify: {
-            start: { justifyContent: "start" },
-            center: { justifyContent: "center" },
-            end: { justifyContent: "end" },
-            between: { justifyContent: "space-between" }
+            start: { justifyItems: "start" },
+            center: { justifyItems: "center" },
+            end: { justifyItems: "end" },
+            between: { justifyItems: "space-between" }
         },
         flow: {
             row: { gridAutoFlow: "row" },
@@ -31,8 +31,7 @@ export const gridCss = css( {
             3: { gridTemplateColumns: "repeat(3, 1fr)" },
             4: { gridTemplateColumns: "repeat(4, 1fr)" },
             auto: {
-                gridTemplateColumns:
-                    "minmax(15rem, max-content) repeat(auto-fill, 1fr)"
+                gridTemplateColumns: "repeat(auto-fill, minmax(20rem, 3fr))"
             }
         },
         gap: {

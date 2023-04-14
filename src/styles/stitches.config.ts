@@ -19,8 +19,8 @@ export const {
 } = createStitches( {
     theme: {
         colors: {
-            complentaryColor: "#1b1111",
-            accentColor: "#e82821",
+            complentaryColor: "#2C3333",
+            accentColor: "#CBE4DE",
             secondaryColor: "#b5c0bc",
             primaryColor: "#ece1e0"
         },

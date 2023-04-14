@@ -1,58 +1,22 @@
-import { Box } from "@src/components";
-import { axiosInstance } from "@src/helpers";
-import axiosHuggingFace from "@src/helpers/axiosHuggingFace";
-import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { ReviewData } from "@src/helpers/types.d";
 
-interface apiData {
-  reviewerName: string;
-  reviewTitle: string;
-  reviewBody: string;
-  reviewStars: string;
+export interface ReviewGridProps {
+    reviews: ReviewData[];
 }
 
-export const Sentiments = () => {
-    const { productId } = useParams();
-    const [productData, setProductData] = useState<apiData[]>( [] );
-
-    const fetchData = useCallback( async () => {
-        try {
-            const { data, status } = await axiosInstance.get(
-                `reviews/${productId}?maxPageLimit=2`
-            );
-            setProductData( data );
-        } catch ( error ) {
-            console.log( error );
-        }
-    }, [productId] );
-
-    const fetchDataRoberta = useCallback(
-        async ( reviewBody: unknown ) => {
-            try {
-                const response = await axiosHuggingFace.post( "", {
-                    data: {
-                        inputs: ["hungry"],
-                    },
-                } );
-                console.log( response.data );
-            } catch ( error ) {
-                console.log( error );
+export const Sentiments = ( { reviews }: ReviewGridProps ) => {
+    const df = new dfd.DataFrame( reviews );
+    const graphCanvas = document.createElement( "div" );
+    graphCanvas.setAttribute( "id", "graph-plot" );
+    const canvasContainer = document.getElementById( "graph-canvas" );
+    canvasContainer?.appendChild( graphCanvas );
+    df.print();
+    if ( document.getElementById( "graph-plot" ) )
+        df.plot( "graph-plot" ).bar( {
+            config: {
+                columns: [ "positive", "negative", "neutral" ]
             }
-        },
-        [productId]
-    );
+        } );
 
-    useEffect( () => {
-        fetchData();
-        if ( productData ) {
-            productData?.map( ( product, index ) => {
-                const { reviewerName, reviewTitle, reviewBody, reviewStars } = product;
-            } );
-            fetchDataRoberta( "i like it" );
-        }
-        console.log( productData );
-    }, [] );
-
-    return;
+    return null;
 };

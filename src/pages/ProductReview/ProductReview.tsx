@@ -1,72 +1,69 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    CardContainer,
-    CardTitle,
-    Flex,
-    Grid,
-} from "@src/components";
-import { axiosInstance } from "@src/helpers";
-import { useCallback, useEffect, useState } from "react";
+import { Box, Button } from "@src/components";
+import { ReviewGrid } from "@src/components/ReviewGrid";
+import { ReviewData, ReviewType } from "@src/helpers/types.d";
+import { useGetProduct, useGetReviews, useGetSentiments } from "@src/hooks";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Sentiments } from "../Sentiments";
 
 interface apiData {
-  reviewerName: string;
-  reviewTitle: string;
-  reviewBody: string;
-  reviewStars: string;
+    reviewerName: string;
+    reviewTitle: string;
+    reviewBody: string;
+    reviewStars: string;
 }
 
 export const ProductReview = () => {
     const { productId } = useParams();
-    const [productData, setProductData] = useState<apiData[]>( [] );
     const navigate = useNavigate();
+    const [ showSentiments, setShowSentiments ] = useState( false );
 
-    const fetchData = useCallback( async () => {
-        try {
-            const { data, status } = await axiosInstance.get(
-                `reviews/${productId}?maxPageLimit=2`
-            );
-            setProductData( data );
-        } catch ( error ) {
-            console.log( error );
-        }
-    }, [productId] );
+    const { data: product } = useGetProduct( productId! );
+    const { data: reviews } = useGetReviews(
+        productId!,
+        ReviewType.AllReviews,
+        300
+    );
+
+    const arrayTitles: string[] | unknown = useMemo( () => {
+        const reviewsT: unknown = reviews?.map(
+            ( { reviewTitle } ) => reviewTitle
+        );
+        return reviewsT;
+    }, [ reviews ] );
+
+    const { data: sentiments } = useGetSentiments( arrayTitles as string[] );
+
+    const reviewData: ReviewData[] | unknown = useMemo( () => {
+        const data: unknown = reviews?.map( ( review, index ) => {
+            return {
+                ...review,
+                positive: sentiments?.[ index ][ 2 ]?.score,
+                neutral: sentiments?.[ index ][ 1 ]?.score,
+                negative: sentiments?.[ index ][ 0 ]?.score
+            };
+        } );
+        return data;
+    }, [ reviews, sentiments ] );
 
     const handleClick = () => {
-        navigate( `sentiments` );
-
-        return productData;
+        setShowSentiments( !showSentiments );
     };
 
-    useEffect( () => {
-        fetchData();
-    }, [] );
-
     return (
-        <Box>
-            <Button variant={"primaryButton"} onClick={handleClick}>
-        THIS IS A UGLYYY BUTTON
+        <Box id="graph-canvas" size={"full"}>
+            {!showSentiments ? (
+                <ReviewGrid reviews={reviews!} />
+            ) : reviewData ? (
+                <Sentiments reviews={reviewData as ReviewData[]} />
+            ) : null}
+            <Button variant={"floatingButton"} onClick={handleClick}>
+                {`${
+                    showSentiments
+                        ? `Show Product Reviews`
+                        : `Get Sentiment Analysis`
+                }`}
             </Button>
-            <Grid>
-                {productData &&
-          productData?.map( ( product, index ) => {
-              const { reviewerName, reviewTitle, reviewBody, reviewStars } =
-              product;
-              return (
-                  <CardContainer direction={"column"} key={index}>
-                      <Flex align={"center"}>
-                          <Avatar name={reviewerName} />
-                          <h1>{reviewerName}</h1>
-                      </Flex>
-                      <h3>Rating: {reviewStars}</h3>
-                      <CardTitle>{reviewTitle}</CardTitle>
-                      {reviewBody}
-                  </CardContainer>
-              );
-          } )}
-            </Grid>
         </Box>
     );
 };

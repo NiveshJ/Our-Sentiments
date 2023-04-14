@@ -1,5 +1,6 @@
 import { Box } from "../Box";
 import { Flex } from "../Flex";
+import { FlexBox } from "../FlexBox";
 
 interface AvatarProps {
     name: string;
@@ -7,12 +8,15 @@ interface AvatarProps {
 
 export const Avatar = ( { name }: AvatarProps ) => {
     const [ firstName, lastName ] = name.split( " " );
-    const avatarText =
-        firstName?.substring( 0, 1 ) + " " + lastName?.substring( 0, 1 );
+
+    const avatarText = `${firstName ? firstName.substring( 0, 1 ) : ""} ${
+        lastName ? lastName?.substring( 0, 1 ) : ""
+    }`;
 
     return (
-        <Box
-            size={"5"}
+        <FlexBox
+            center
+            size={"6"}
             css={{
                 backgroundColor: "Black",
                 borderRadius: "$circle",
@@ -20,9 +24,7 @@ export const Avatar = ( { name }: AvatarProps ) => {
                 p: "$1"
             }}
         >
-            <Flex center css={{ fontSize: ".5rem" }}>
-                <h2>{avatarText}</h2>
-            </Flex>
-        </Box>
+            <h2>{avatarText}</h2>
+        </FlexBox>
     );
 };
