@@ -7,30 +7,28 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Sentiments } from "../Sentiments";
 
 interface apiData {
-    reviewerName: string;
-    reviewTitle: string;
-    reviewBody: string;
-    reviewStars: string;
+  reviewerName: string;
+  reviewTitle: string;
+  reviewBody: string;
+  reviewStars: string;
 }
 
 export const ProductReview = () => {
     const { productId } = useParams();
     const navigate = useNavigate();
-    const [ showSentiments, setShowSentiments ] = useState( false );
+    const [showSentiments, setShowSentiments] = useState( false );
 
     const { data: product } = useGetProduct( productId! );
     const { data: reviews } = useGetReviews(
-        productId!,
-        ReviewType.AllReviews,
-        300
+    productId!,
+    ReviewType.AllReviews,
+    10
     );
 
     const arrayTitles: string[] | unknown = useMemo( () => {
-        const reviewsT: unknown = reviews?.map(
-            ( { reviewTitle } ) => reviewTitle
-        );
+        const reviewsT: unknown = reviews?.map( ( { reviewTitle } ) => reviewTitle );
         return reviewsT;
-    }, [ reviews ] );
+    }, [reviews] );
 
     const { data: sentiments } = useGetSentiments( arrayTitles as string[] );
 
@@ -38,13 +36,13 @@ export const ProductReview = () => {
         const data: unknown = reviews?.map( ( review, index ) => {
             return {
                 ...review,
-                positive: sentiments?.[ index ][ 2 ]?.score,
-                neutral: sentiments?.[ index ][ 1 ]?.score,
-                negative: sentiments?.[ index ][ 0 ]?.score
+                positive: sentiments?.[index][2]?.score,
+                neutral: sentiments?.[index][1]?.score,
+                negative: sentiments?.[index][0]?.score,
             };
         } );
         return data;
-    }, [ reviews, sentiments ] );
+    }, [reviews, sentiments] );
 
     const handleClick = () => {
         setShowSentiments( !showSentiments );
@@ -59,9 +57,7 @@ export const ProductReview = () => {
             ) : null}
             <Button variant={"floatingButton"} onClick={handleClick}>
                 {`${
-                    showSentiments
-                        ? `Show Product Reviews`
-                        : `Get Sentiment Analysis`
+                    showSentiments ? `Show Product Reviews` : `Get Sentiment Analysis`
                 }`}
             </Button>
         </Box>
